@@ -1,17 +1,15 @@
 version: '2'
 networks:
-  world:
-    external:
-      name: www
+  www:
+    external: true
 
 services:
 
   nginx-proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
-    depends_on:
-      - default-site
     volumes:
+      - /srv/share/html:/usr/share/nginx/html
       - /srv/etc/conf.d:/etc/nginx/conf.d
       - /srv/etc/vhost.d:/etc/nginx/vhost.d
       - /srv/certs:/etc/nginx/certs:ro
@@ -20,7 +18,7 @@ services:
       - '80:80'
       - '443:443'
     networks:
-      - world
+      - www
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -29,11 +27,3 @@ services:
     volumes:
       - /srv/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
-  default-site:
-    image: nginx:alpine
-    container_name: default-site
-    environment:
-      - VIRTUAL_HOST=core.muid.sh
-      - LETSENCRYPT_HOST=core.muid.sh
-      - LETSENCRYPT_EMAIL=ewald@muthesius.de
