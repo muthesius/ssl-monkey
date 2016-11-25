@@ -1,5 +1,7 @@
 # SSL Monkey
 
+_for internal use_
+
 Automated SSL Proxy with [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) and [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion).
 
 Simply connect to the `www` network on other containers or in a `docker-compose.yml` as follows:
