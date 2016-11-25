@@ -6,6 +6,7 @@ networks:
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
+    restart: always
     container_name: nginx-proxy
     volumes:
       - /srv/share/html:/usr/share/nginx/html
@@ -20,6 +21,8 @@ services:
       - www
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    container_name: letsencrypt
     volumes_from:
       - nginx-proxy
     volumes:
